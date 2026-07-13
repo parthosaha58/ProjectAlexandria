@@ -4,40 +4,37 @@ import axios from "axios";
 import "./LoginSignup.css";
 import "./home.css";
 import Profile from "./profile_page";
-
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (isLogin) {
         console.log("Logging in with", username, password);
-        const response = await axios.post("http://localhost:5000/api/login", {
+        const response = await axios.post("https://projectalexandria.onrender.com/api/login", {
           username,
           password,
         });
         if (response.status === 200) {
-          navigate("/profile_page", { state: { username } }); // Pass username to profile page
+          navigate("/profile_page", { state: { username } });
         }
       } else {
         console.log("Signing up with", username, password);
-        const response = await axios.post("http://localhost:5000/api/signup", {
+        const response = await axios.post("https://projectalexandria.onrender.com/api/signup", {
           username,
           password,
         });
         if (response.status === 201) {
-          navigate("/profile_page", { state: { username } }); // Pass username to profile page
+          navigate("/profile_page", { state: { username } });
         }
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   return (
     <div className="login-signup-container">
       <header className="header">
@@ -77,7 +74,7 @@ const LoginSignup = () => {
           </button>
         </form>
         <p>
-          {isLogin ? "Don’t have an account?" : "Already have an account?"}
+          {isLogin ? "Don't have an account?" : "Already have an account?"}
           <span onClick={() => setIsLogin(!isLogin)} className="toggle-link">
             {isLogin ? "Sign Up" : "Login"}
           </span>
@@ -86,5 +83,4 @@ const LoginSignup = () => {
     </div>
   );
 };
-
 export default LoginSignup;
