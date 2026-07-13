@@ -17,13 +17,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
       try {
         const response = await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}`);
         const data = await response.json();
-
-        console.log("Fetched Data:", data);
-
         const linkInfo = data.links.find((l) => l.url === link);
-
-        console.log("Matched Link Info:", linkInfo);
-
         if (linkInfo) {
           setLikes(linkInfo.likes || 0);
           setDislikes(linkInfo.dislikes || 0);
@@ -222,7 +216,6 @@ const Library = () => {
     setLoadingResources(true);
     try {
       const data = await fetchResourcesByTopic(courseid, topic);
-      console.log("API Response for topic:", topic, data);
       setResources(data || []);
       setFilteredResources(data.flatMap((resource) => resource.links) || []);
       setSelectedTopic(topic);
