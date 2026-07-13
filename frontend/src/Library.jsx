@@ -15,7 +15,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   useEffect(() => {
     const fetchLinkInfo = async () => {
       try {
-        const response = await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}`);
+        const response = await fetch("https://projectalexandria.onrender.com/api/resources/" + courseid + "/" + topic);
         const data = await response.json();
         const linkInfo = data.links.find((l) => l.url === link);
         if (linkInfo) {
@@ -31,7 +31,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   }, [link, courseid, topic]);
 
   const handleLike = async () => {
-    const response = await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/like`, {
+    const response = await fetch("https://projectalexandria.onrender.com/api/resources/" + courseid + "/" + topic + "/like", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: link }),
@@ -42,7 +42,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
 
   const handleDislike = async () => {
     const response = await fetch(
-      `https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/dislike`,
+      "https://projectalexandria.onrender.com/api/resources/" + courseid + "/" + topic + "/dislike",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -56,7 +56,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   const handleDescriptionChange = async (e) => {
     const newDescription = e.target.value;
     setDescription(newDescription);
-    await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/description`, {
+    await fetch("https://projectalexandria.onrender.com/api/resources/" + courseid + "/" + topic + "/description", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: link, description: newDescription }),
@@ -64,22 +64,8 @@ const ResourceBox = ({ link, courseid, topic }) => {
   };
 
   return (
-    <div
-      className="resource-box"
-      style={{
-        border: "1px solid #ccc",
-        padding: "15px",
-        marginBottom: "15px",
-        borderRadius: "10px",
-        backgroundColor: "#f9f9f9",
-      }}
-    >
-      
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}
-      >
+    <div className="resource-box" style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "15px", borderRadius: "10px", backgroundColor: "#f9f9f9" }}>
+      <a href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>
         {link}
       </a>
       <div style={{ marginTop: "10px" }}>
@@ -87,38 +73,13 @@ const ResourceBox = ({ link, courseid, topic }) => {
           placeholder="description..."
           value={description}
           onChange={handleDescriptionChange}
-          style={{
-            width: "100%",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            marginBottom: "10px",
-          }}
+          style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", marginBottom: "10px" }}
         />
-        <button
-          onClick={handleLike}
-          style={{
-            marginRight: "10px",
-            padding: "5px 10px",
-            borderRadius: "5px",
-            border: "none",
-            backgroundColor: "#28a745",
-            color: "#fff",
-          }}
-        >
+        <button onClick={handleLike} style={{ marginRight: "10px", padding: "5px 10px", borderRadius: "5px", border: "none", backgroundColor: "#28a745", color: "#fff" }}>
           Like
         </button>
         <span style={{ marginRight: "20px" }}>{likes}</span>
-        <button
-          onClick={handleDislike}
-          style={{
-            padding: "5px 10px",
-            borderRadius: "5px",
-            border: "none",
-            backgroundColor: "#dc3545",
-            color: "#fff",
-          }}
-        >
+        <button onClick={handleDislike} style={{ padding: "5px 10px", borderRadius: "5px", border: "none", backgroundColor: "#dc3545", color: "#fff" }}>
           Dislike
         </button>
         <span>{dislikes}</span>
@@ -178,21 +139,11 @@ const Library = () => {
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-
     const filteredCourses = courseIds.filter(
-      (course) =>
-        course.coursename.toLowerCase().includes(query) ||
-        course.courseid.toLowerCase().includes(query)
+      (course) => course.coursename.toLowerCase().includes(query) || course.courseid.toLowerCase().includes(query)
     );
-
-    const filteredTopics = topics.filter((topic) =>
-      topic.toLowerCase().includes(query)
-    );
-
-    const filteredResources = resources.filter((resource) =>
-      resource.links.some((link) => link.toLowerCase().includes(query))
-    );
-
+    const filteredTopics = topics.filter((topic) => topic.toLowerCase().includes(query));
+    const filteredResources = resources.filter((resource) => resource.links.some((link) => link.toLowerCase().includes(query)));
     setFilteredCourses(filteredCourses);
     setFilteredTopics(filteredTopics);
     setFilteredResources(filteredResources);
@@ -231,80 +182,39 @@ const Library = () => {
   return (
     <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
       <h1 style={{ textAlign: "center", color: "#333" }}>Course Library</h1>
-
       <input
         type="text"
         placeholder="Search courses, topics, resources"
         value={searchQuery}
         onChange={handleSearch}
-        style={{
-          width: "100%",
-          padding: "10px",
-          fontSize: "16px",
-          marginBottom: "20px",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
-        }}
+        style={{ width: "100%", padding: "10px", fontSize: "16px", marginBottom: "20px", borderRadius: "5px", border: "1px solid #ccc" }}
       />
-
       <h2 style={{ color: "#555" }}>Courses</h2>
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {filteredCourses.map((course) => (
           <li
             key={course.courseid}
             onClick={() => handleCourseSelect(course.courseid)}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              marginBottom: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              backgroundColor: "#f9f9f9",
-            }}
+            style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "10px", borderRadius: "10px", cursor: "pointer", backgroundColor: "#f9f9f9" }}
           >
             <strong>Course Name:</strong> {course.coursename} <br />
             <strong>Course ID:</strong> {course.courseid}
           </li>
         ))}
       </ul>
-
       {selectedCourse && (
-        <div
-          style={{
-            border: "1px solid #ccc",
-            padding: "20px",
-            marginTop: "20px",
-            borderRadius: "10px",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
+        <div style={{ border: "1px solid #ccc", padding: "20px", marginTop: "20px", borderRadius: "10px", backgroundColor: "#f9f9f9" }}>
           <h2 style={{ color: "#555" }}>Course Details</h2>
-          <p>
-            <strong>Course ID:</strong> {selectedCourse.courseid}
-          </p>
-          <p>
-            <strong>Course Name:</strong> {selectedCourse.coursename}
-          </p>
-          <p>
-            <strong>Number of Topics:</strong> {selectedCourse.numberOfTopics}
-          </p>
-
+          <p><strong>Course ID:</strong> {selectedCourse.courseid}</p>
+          <p><strong>Course Name:</strong> {selectedCourse.coursename}</p>
+          <p><strong>Number of Topics:</strong> {selectedCourse.numberOfTopics}</p>
           <ul style={{ listStyleType: "none", padding: 0 }}>
             {selectedCourse.topics.length > 0 ? (
               selectedCourse.topics.map((topic) => (
                 <li
                   key={topic}
-                  onClick={() =>
-                    handleTopicSelect(selectedCourse.courseid, topic)
-                  }
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    marginBottom: "10px",
-                    borderRadius: "10px",
-                    cursor: "pointer",
-                    backgroundColor: "#fff",
-                  }}
+                  onClick={() => handleTopicSelect(selectedCourse.courseid, topic)}
+                  style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px", borderRadius: "10px", cursor: "pointer", backgroundColor: "#fff" }}
                 >
                   {topic}
                   {selectedTopic === topic && (
@@ -314,12 +224,7 @@ const Library = () => {
                       ) : filteredResources.length > 0 ? (
                         filteredResources.map((link, index) => (
                           <li key={index}>
-                            <ResourceBox
-                              key={index}
-                              link={link.url}
-                              courseid={selectedCourse.courseid}
-                              topic={selectedTopic}
-                            />
+                            <ResourceBox key={index} link={link.url} courseid={selectedCourse.courseid} topic={selectedTopic} />
                           </li>
                         ))
                       ) : (
@@ -335,7 +240,6 @@ const Library = () => {
           </ul>
         </div>
       )}
-
       {loadingTopics && <p>Loading course details...</p>}
     </div>
   );
