@@ -1,4 +1,3 @@
-//root component
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import "./home.css";
@@ -10,14 +9,12 @@ import PostPage from "./post";
 import axios from "axios";
 import ResourceBox from "./Library";
 import Library from "./Library";
-
 function App() {
   const [posts, setPosts] = useState([]);
   const [name, setName] = useState("Hritik");
   const [notice, setNotice] = useState(
     "Welcome to Project Alexandria! Enjoy browsing and feel free to ask questions."
   );
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -29,11 +26,9 @@ function App() {
     };
     fetchPosts();
   }, []);
-
   const handleClick = () => {
     setName("Hrithik.");
   };
-
   return (
     <div className="home-container">
       <header className="header">
@@ -50,10 +45,9 @@ function App() {
           <Route path="/profile_page" element={<Profile />} />
         </Routes>
       </header>
-
       <main className="main">
         <div className="notice-board">
-          <p>{notice}</p> {/* Display the notice message */}
+          <p>{notice}</p>
         </div>
         <div className="post-grid">
           {posts.map((post) => (
@@ -61,7 +55,6 @@ function App() {
           ))}
         </div>
       </main>
-
       <footer className="footer">
         <p>
           coded by
@@ -83,5 +76,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
