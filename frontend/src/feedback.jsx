@@ -7,16 +7,14 @@ const FeedbackPage = () => {
   const [feedback, setFeedback] = useState("");
   const [feedbackList, setFeedbackList] = useState([]);
   const [flaggedComments, setFlaggedComments] = useState([]);
-  const [flaggedPosts, setFlaggedPosts] = useState([]); // New state for flagged posts
-  const [feedbackComments, setFeedbackComments] = useState({}); // New state for feedback comments
+  const [flaggedPosts, setFlaggedPosts] = useState([]);
+  const [feedbackComments, setFeedbackComments] = useState({});
 
   useEffect(() => {
-    // Fetch feedback list from localStorage on component mount
     const storedFeedbackList =
       JSON.parse(localStorage.getItem("feedbackList")) || [];
     setFeedbackList(storedFeedbackList);
 
-    // Fetch flagged comments from localStorage
     const storedFlaggedComments =
       JSON.parse(localStorage.getItem("flaggedComments")) || [];
     setFlaggedComments(storedFlaggedComments);
@@ -30,10 +28,9 @@ const FeedbackPage = () => {
       handleFlaggedCommentsUpdated
     );
 
-    // Fetch flagged posts from the server
     const fetchFlaggedPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/posts");
+        const response = await axios.get("https://projectalexandria.onrender.com/api/posts");
         const flagged = response.data.filter((post) => post.isFlagged);
         setFlaggedPosts(flagged);
       } catch (error) {
@@ -59,7 +56,7 @@ const FeedbackPage = () => {
     if (feedback.trim()) {
       const updatedFeedbackList = [...feedbackList, { text: feedback }];
       setFeedbackList(updatedFeedbackList);
-      localStorage.setItem("feedbackList", JSON.stringify(updatedFeedbackList)); // Save to localStorage
+      localStorage.setItem("feedbackList", JSON.stringify(updatedFeedbackList));
       setFeedback("");
     } else {
       alert("Please enter your feedback before submitting.");
@@ -124,7 +121,7 @@ const FeedbackPage = () => {
       }
       updatedFeedbackList[feedbackIndex].comments.push(comment);
       setFeedbackList(updatedFeedbackList);
-      localStorage.setItem("feedbackList", JSON.stringify(updatedFeedbackList)); // Save to localStorage
+      localStorage.setItem("feedbackList", JSON.stringify(updatedFeedbackList));
       setFeedbackComments({
         ...feedbackComments,
         [feedbackIndex]: "",
