@@ -15,7 +15,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   useEffect(() => {
     const fetchLinkInfo = async () => {
       try {
-        const response = await fetch(`/api/resources/${courseid}/${topic}`);
+        const response = await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}`);
         const data = await response.json();
 
         console.log("Fetched Data:", data);
@@ -37,7 +37,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   }, [link, courseid, topic]);
 
   const handleLike = async () => {
-    const response = await fetch(`/api/resources/${courseid}/${topic}/like`, {
+    const response = await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: link }),
@@ -48,7 +48,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
 
   const handleDislike = async () => {
     const response = await fetch(
-      `/api/resources/${courseid}/${topic}/dislike`,
+      `https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/dislike`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,7 +62,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
   const handleDescriptionChange = async (e) => {
     const newDescription = e.target.value;
     setDescription(newDescription);
-    await fetch(`/api/resources/${courseid}/${topic}/description`, {
+    await fetch(`https://projectalexandria.onrender.com/api/resources/${courseid}/${topic}/description`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: link, description: newDescription }),
@@ -80,7 +80,7 @@ const ResourceBox = ({ link, courseid, topic }) => {
         backgroundColor: "#f9f9f9",
       }}
     >
-      <a
+      
         href={link}
         target="_blank"
         rel="noopener noreferrer"
@@ -147,7 +147,6 @@ const Library = () => {
   const [filteredResources, setFilteredResources] = useState([]);
 
   useEffect(() => {
-    // Fetch all data on mount
     fetchCoursesData();
     fetchTopicsData();
     fetchResourcesData();
@@ -186,7 +185,6 @@ const Library = () => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // Filter courses, topics, and resources based on the search query
     const filteredCourses = courseIds.filter(
       (course) =>
         course.coursename.toLowerCase().includes(query) ||
@@ -201,7 +199,6 @@ const Library = () => {
       resource.links.some((link) => link.toLowerCase().includes(query))
     );
 
-    // Update the filtered data states
     setFilteredCourses(filteredCourses);
     setFilteredTopics(filteredTopics);
     setFilteredResources(filteredResources);
@@ -225,14 +222,14 @@ const Library = () => {
     setLoadingResources(true);
     try {
       const data = await fetchResourcesByTopic(courseid, topic);
-      console.log("API Response for topic:", topic, data); // Log API response
-      setResources(data || []); // Ensure empty array if no resources
-      setFilteredResources(data.flatMap((resource) => resource.links) || []); // Update filtered resources
+      console.log("API Response for topic:", topic, data);
+      setResources(data || []);
+      setFilteredResources(data.flatMap((resource) => resource.links) || []);
       setSelectedTopic(topic);
     } catch (error) {
       console.error("Error fetching resources for topic:", topic, error);
-      setResources([]); // Fallback to no resources
-      setFilteredResources([]); // Fallback to no filtered resources
+      setResources([]);
+      setFilteredResources([]);
     } finally {
       setLoadingResources(false);
     }
@@ -242,7 +239,6 @@ const Library = () => {
     <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
       <h1 style={{ textAlign: "center", color: "#333" }}>Course Library</h1>
 
-      {/* Search Box */}
       <input
         type="text"
         placeholder="Search courses, topics, resources"
@@ -279,7 +275,6 @@ const Library = () => {
         ))}
       </ul>
 
-      {/* Course Details */}
       {selectedCourse && (
         <div
           style={{
@@ -301,7 +296,6 @@ const Library = () => {
             <strong>Number of Topics:</strong> {selectedCourse.numberOfTopics}
           </p>
 
-          {/* Render Topics */}
           <ul style={{ listStyleType: "none", padding: 0 }}>
             {selectedCourse.topics.length > 0 ? (
               selectedCourse.topics.map((topic) => (
