@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Post_structure from "./components/post_structure";
-import "./Feedback.css";
+import ".feedback.css";
 
 const FeedbackPage = () => {
   const [feedback, setFeedback] = useState("");
