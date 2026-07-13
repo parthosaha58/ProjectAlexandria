@@ -1,0 +1,124 @@
+body {
+  font-family: monospace;
+  margin: 0;
+  background-color: #d5c5ae;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #54101d;
+  color: #d5c5ae;
+  padding: 2rem 2rem;
+  text-align: left;
+  position: relative; /* Ensure header is positioned correctly */
+}
+header a {
+  padding: 1rem;
+  text-decoration: none;
+  color: #d5c5ae;
+  font-size: 1.2rem;
+  width: 150px;
+  text-align: center;
+}
+header a:first-of-type {
+  font-size: 2rem;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center the main tag vertically */
+  padding: 1rem;
+  margin-top: 2rem; /* Add margin-top to ensure main is not hidden */
+  z-index: 1; /* Ensure header is above other elements */
+}
+.post-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto; /* Center horizontally */
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  height: 100vh; /* Full viewport height */
+}
+.post-container textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.post-container button {
+  padding: 0.5rem 1rem;
+  background-color: #54101d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.post-list {
+  width: 100%;
+  max-width: 600px;
+}
+.post {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+}
+.comment-box {
+  width: 100%;
+  margin-top: 1rem;
+  display: none;
+}
+.comment-box textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.comment-box button {
+  padding: 0.5rem 1rem;
+  background-color: #54101d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.comment-box textarea {
+  width: 100%;
+  height: 50px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+}
+
+.post-button {
+  padding: 0.5rem 1rem;
+  background-color: #54101d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.refresh-button {
+  padding: 0.5rem 1rem;
+  background-color: #54101d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+footer {
+  background-color: #312229;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555555;
+  border-top: 1px solid #ddd;
+  padding: 1rem;
+}

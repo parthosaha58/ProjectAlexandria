@@ -1,0 +1,98 @@
+.post {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.flag-button {
+  background-color: #f8d7da;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.flag-button.flagged {
+  background-color: #54101d;
+}
+
+.post-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.post-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 10px;
+}
+
+.post-footer {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-author {
+  font-weight: bold;
+}
+
+.post-date {
+  margin-top: 10px;
+}
+
+.like-dislike-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.like-button,
+.dislike-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.like-button:hover {
+  background-color: #d4edda;
+}
+
+.dislike-button:hover {
+  background-color: #f8d7da;
+}
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}

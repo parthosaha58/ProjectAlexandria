@@ -1,0 +1,94 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 80px; /* Same as the home page padding */
+  background-color: #f4f4f4;
+}
+
+.profile-container .main {
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  padding-bottom: 3rem;
+  background-color: #8d580d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2em;
+  color: #54101d;
+  margin-bottom: 1rem;
+}
+
+.bio-section,
+.bookmark-bar {
+  width: 90%; /* Match width of posts in home */
+  background-color: #54101d;
+  color: #8d580d;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.bookmark-bar {
+  margin-top: 20px; /* Add gap between bio and bookmark bar */
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+button {
+  background-color: #8d580d;
+  padding: 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.save-bio-button {
+  background-color: #312229;
+  color: #8d580d;
+  border: none;
+}
+
+.add-bookmark-button {
+  background-color: #312229;
+  color: #8d580d;
+  border: none;
+}
+
+.bookmark-bar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.bookmark-bar li {
+  padding: 5px 0;
+}
+
+.logout-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #312229;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: #ff0000;
+}

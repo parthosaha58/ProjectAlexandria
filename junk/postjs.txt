@@ -1,0 +1,35 @@
+const express = require("express");
+const router = express.Router();
+const Post = require("../models/post");
+const User = require("../models/user");
+
+// ...existing code...
+
+// Create a new post
+router.post("/create", async (req, res) => {
+  try {
+    const { authorName, question, tags, images } = req.body;
+    const newPost = new Post({
+      authorName,
+      question,
+      tags: tags.split(",").map((tag) => tag.trim()),
+      images,
+    });
+
+    const savedPost = await newPost.save();
+
+    // Update the user's createdPosts array
+    await User.findOneAndUpdate(
+      { username: authorName },
+      { $push: { createdPosts: savedPost._id } }
+    );
+
+    res.status(201).json(savedPost);
+  } catch (error) {
+    res.status(500).json({ error: "Error creating post" });
+  }
+});
+
+// ...existing code...
+
+module.exports = router;
