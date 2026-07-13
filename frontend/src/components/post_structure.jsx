@@ -1,24 +1,24 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import "./post.css"; // Import the CSS file
+import "./post.css";
 
 function Post_structure({ post }) {
   if (!post) {
     return <div>Post data is not available.</div>;
   }
 
-  const [isFlagged, setIsFlagged] = useState(post?.isFlagged || false); // Provide default value
-  const [hasReacted, setHasReacted] = useState(false); // Tracks if the user has liked or disliked
-  const [likes, setLikes] = useState(post?.likes || 0); // Provide default value
-  const [dislikes, setDislikes] = useState(post?.dislikes || 0); // Provide default value
+  const [isFlagged, setIsFlagged] = useState(post?.isFlagged || false);
+  const [hasReacted, setHasReacted] = useState(false);
+  const [likes, setLikes] = useState(post?.likes || 0);
+  const [dislikes, setDislikes] = useState(post?.dislikes || 0);
   const [newComment, setNewComment] = useState("");
-  const [username, setUsername] = useState(""); // New state for username
+  const [username, setUsername] = useState("");
 
   const toggleFlag = async () => {
     try {
       const updatedFlag = !isFlagged;
-      await axios.put(`http://localhost:5000/api/posts/${post._id}/flag`, {
+      await axios.put(`https://projectalexandria.onrender.com/api/posts/${post._id}/flag`, {
         isFlagged: updatedFlag,
       });
       setIsFlagged(updatedFlag);
@@ -30,7 +30,7 @@ function Post_structure({ post }) {
   const handleLike = async () => {
     if (!hasReacted) {
       try {
-        await axios.put(`http://localhost:5000/api/posts/${post._id}/like`);
+        await axios.put(`https://projectalexandria.onrender.com/api/posts/${post._id}/like`);
         setLikes(likes + 1);
         setHasReacted(true);
       } catch (error) {
@@ -42,7 +42,7 @@ function Post_structure({ post }) {
   const handleDislike = async () => {
     if (!hasReacted) {
       try {
-        await axios.put(`http://localhost:5000/api/posts/${post._id}/dislike`);
+        await axios.put(`https://projectalexandria.onrender.com/api/posts/${post._id}/dislike`);
         setDislikes(dislikes + 1);
         setHasReacted(true);
       } catch (error) {
@@ -58,11 +58,10 @@ function Post_structure({ post }) {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/posts/${post._id}/comments`, {
+      await axios.put(`https://projectalexandria.onrender.com/api/posts/${post._id}/comments`, {
         comment: newComment,
       });
       setNewComment("");
-      // Update the post comments locally
       post.comments.push(newComment);
     } catch (error) {
       console.error("Error adding comment:", error);
@@ -72,10 +71,10 @@ function Post_structure({ post }) {
   const handleBookmarkSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/users/${username}/bookmark`, {
+      await axios.put(`https://projectalexandria.onrender.com/api/users/${username}/bookmark`, {
         postId: post._id,
       });
-      setUsername(""); // Clear the username input field
+      setUsername("");
     } catch (error) {
       console.error("Error adding bookmark:", error);
     }
@@ -178,7 +177,7 @@ Post_structure.propTypes = {
     dislikes: PropTypes.number,
     date: PropTypes.string.isRequired,
     isFlagged: PropTypes.bool,
-    images: PropTypes.arrayOf(PropTypes.string), // Add images prop type
+    images: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
@@ -187,9 +186,9 @@ Post_structure.defaultProps = {
     likes: 0,
     dislikes: 0,
     isFlagged: false,
-    comments: [], // Ensure comments is an array
-    tags: [], // Ensure tags is an array
-    images: [], // Ensure images is an array
+    comments: [],
+    tags: [],
+    images: [],
   },
 };
 
